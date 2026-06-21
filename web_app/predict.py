@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import os
 
 # 模型路径配置
-MODEL_PATH = r'C:\Users\HP\Documents\GitHub\corn_leave_simple_web\病害检测\runs\detect\corn_leave_disease_results\run_v1\weights\best.pt'
+MODEL_PATH = './病害检测/runs/detect/corn_leave_disease_results/run_v1/weights/best.pt'
 
 # 加载模型（全局加载一次，避免重复加载）
 if not os.path.exists(MODEL_PATH):
