@@ -4,10 +4,18 @@
 ```
 web_app/
 ├── app.py              # Flask web服务
+├── predict.py          # YOLO推理模块
 ├── templates/
 │   └── index.html      # 上传页面
 ├── requirements.txt    # Python依赖
 └── .gitignore
+
+yolo_detect/
+├── train.py            # 训练代码
+├── predict.py          # 推理核心（备用）
+├── yolov8n.pt         # 预训练模型
+├── Corn.yolov8/       # 数据集配置
+└── runs/              # 训练结果（包含best.pt）
 ```
 
 ## 使用方法
@@ -31,5 +39,5 @@ python app.py
 - 显示检测结果和置信度
 
 ## 注意事项
-- 模型文件位于 `../病害检测/runs/detect/corn_leave_disease_results/run_v1/weights/best.pt`
-- 确保病害检测模块中的 predict.py 正常工作
+- 模型文件位于 `./yolo_detect/runs/detect/corn_leave_disease_results/run_v1/weights/best.pt`
+- yolo_detect目录包含训练和推理相关代码
