@@ -1,0 +1,13 @@
+train: C:/Users/HP/Desktop/杂/项目/模型训练/病害检测/Corn.yolov8/train/images
+val: C:/Users/HP/Desktop/杂/项目/模型训练/病害检测/Corn.yolov8/valid/images
+test: C:/Users/HP/Desktop/杂/项目/模型训练/病害检测/Corn.yolov8/test/images
+
+nc: 4
+names: ['Corn_Rust', 'Corn_Grey_Leaf_Spot', 'Corn_Leaf_Blight','Corn_Health']
+
+roboflow:
+  workspace: vickys-workspace-2au0z
+  project: corn-disease-lr8iq
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/vickys-workspace-2au0z/corn-disease-lr8iq/dataset/1
