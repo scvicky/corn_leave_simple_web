@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pt
+runs/
+uploads/
+*.jpg
+*.png
+*.jpeg

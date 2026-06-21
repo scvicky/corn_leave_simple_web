@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玉米病害检测</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: none;
+        }
+        .detection-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: white;
+            border-left: 3px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌽 玉米病害检测系统</h1>
+    
+    <div class="upload-area">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <br>
+            <button type="submit">开始检测</button>
+        </form>
+    </div>
+
+    <div id="result">
+        <h3>检测结果：</h3>
+        <div id="detections"></div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const resultDiv = document.getElementById('result');
+            const detectionsDiv = document.getElementById('detections');
+            
+            // 显示加载状态
+            detectionsDiv.innerHTML = '<p>正在检测中...</p>';
+            resultDiv.style.display = 'block';
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // 检查响应状态
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success === false) {
+                    throw new Error(data.error || '检测失败');
+                }
+                
+                if (data.detections && data.detections.length > 0) {
+                    let html = '';
+                    data.detections.forEach(det => {
+                        html += `
+                            <div class="detection-item">
+                                <strong>${det.class}</strong>: 置信度 ${det.confidence}
+                            </div>
+                        `;
+                    });
+                    detectionsDiv.innerHTML = html;
+                } else {
+                    detectionsDiv.innerHTML = '<p>未检测到病害</p>';
+                }
+                
+            } catch (error) {
+                console.error('错误详情:', error);
+                detectionsDiv.innerHTML = `<p style="color: red;">❌ 检测失败: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
