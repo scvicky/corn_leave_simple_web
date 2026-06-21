@@ -1,0 +1,22 @@
+# Web框架
+flask==3.0.0
+
+# YOLOv8 目标检测
+ultralytics==8.1.0
+
+# 图像处理
+Pillow>=9.5.0
+opencv-python>=4.8.0
+
+# 数据处理
+numpy>=1.24.0
+
+# 深度学习框架（YOLO依赖）
+torch>=2.0.0
+torchvision>=0.15.0
+
+# 其他依赖
+PyYAML>=6.0
+tqdm>=4.65.0
+requests>=2.31.0
+matplotlib>=3.7.0
